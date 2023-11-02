@@ -22,6 +22,19 @@ class ProductModel extends Product {
         imgUrl: json['image'],
         rating: RatingModel.fromJson(json['rating']),
       );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'price': price,
+        'description': description,
+        'category': category,
+        'image': imgUrl,
+        'rating': RatingModel(
+          rate: rating.rate,
+          count: rating.count,
+        ).toJson()
+      };
 }
 
 class RatingModel extends Rating {
@@ -32,4 +45,9 @@ class RatingModel extends Rating {
 
   factory RatingModel.fromJson(Map<String, dynamic> json) =>
       RatingModel(count: json['count'], rate: json['rate']);
+
+  Map<String, dynamic> toJson() => {
+        'rate': rate,
+        'count': count,
+      };
 }
