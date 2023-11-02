@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// defining the error type
 abstract class Failure extends Equatable {
   final String? message;
 
