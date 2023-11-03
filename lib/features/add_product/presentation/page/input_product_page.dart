@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:klontong/features/add_product/presentation/widgets/klontong_input_text.dart';
 import 'package:klontong/features/add_product/presentation/widgets/klontong_tag_widget.dart';
 
@@ -11,7 +13,20 @@ class InputProductPage extends StatefulWidget {
 }
 
 class _InputProductPageState extends State<InputProductPage> {
+  XFile? image;
+  final ImagePicker picker = ImagePicker();
+
   String _categoryVal = 'Category';
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+
+    setState(() {
+      image = img;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,6 +69,7 @@ class _InputProductPageState extends State<InputProductPage> {
               hint: 'in dollar (\$)',
             ),
             const SizedBox(height: 18),
+
             const Text(
               'Product Image',
               style: TextStyle(
@@ -64,40 +80,89 @@ class _InputProductPageState extends State<InputProductPage> {
             const SizedBox(height: 4),
             GestureDetector(
               onTap: () {
-                // TODO: implement input image
+                showImageDialog(context);
               },
-              child: Container(
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white70,
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.12),
-                      blurRadius: 2,
-                      offset: const Offset(0, 2),
+              child: image?.path != null
+                  ? Container(
+                      height: 190,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4.0)),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(File(image?.path as String)),
+                          )),
                     )
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.image_outlined),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      height: 12,
-                      width: 1,
-                      color: Colors.black,
+                  : Container(
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.white70,
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.12),
+                            blurRadius: 2,
+                            offset: const Offset(0, 2),
+                          )
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.image_outlined),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8),
+                            height: 12,
+                            width: 1,
+                            color: Colors.black,
+                          ),
+                          const Icon(Icons.camera_alt_outlined),
+                        ],
+                      ),
                     ),
-                    const Icon(Icons.camera_alt_outlined),
-                  ],
-                ),
-              ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void showImageDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  Navigator.pop(context);
+                  getImage(ImageSource.camera);
+                },
+                child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text('Take an image')),
+              ),
+              Container(
+                height: 1,
+                color: Colors.grey,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  getImage(ImageSource.gallery);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Upload from your galery'),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
