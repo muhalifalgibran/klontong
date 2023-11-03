@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:klontong/app.dart';
+import 'package:klontong/core/di/service_locator.dart';
 
-void main() {
+void main() async {
+  setupLocator();
   runApp(const MyApp());
 }
 

@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
   final String id;
-  final String idCount;
+  final int idCount;
   final String title;
-  final double price;
+  final num price;
   final String description;
   final String category;
   final String imgUrl;
@@ -35,7 +35,7 @@ class Product extends Equatable {
 }
 
 class Rating extends Equatable {
-  final double rate;
+  final num rate;
   final int count;
 
   const Rating({
