@@ -4,7 +4,11 @@ import 'package:klontong/core/entities/product.dart';
 class ItemProductWidget extends StatelessWidget {
   final Product data;
   final double? width;
-  const ItemProductWidget({required this.data, this.width, super.key});
+  const ItemProductWidget({
+    required this.data,
+    this.width,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

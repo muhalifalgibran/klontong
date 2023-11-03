@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:klontong/core/entities/product.dart';
+import 'package:klontong/features/browse/presentation/page/detail_product_page.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:klontong/features/home/presentation/widgets/item_product_widget.dart';
 import 'package:provider/provider.dart';
@@ -131,10 +132,22 @@ class _ListProductState extends State<_ListProduct> {
                   children: List.generate(_displayedProduct.length, (index) {
                     return Column(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 20),
-                          child:
-                              ItemProductWidget(data: _displayedProduct[index]),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => DetailProductPage(
+                                  product: _displayedProduct[index],
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: ItemProductWidget(
+                              data: _displayedProduct[index],
+                            ),
+                          ),
                         ),
                         if (index == _displayedProduct.length - 1)
                           const SizedBox(
@@ -154,7 +167,7 @@ class _ListProductState extends State<_ListProduct> {
                     children: [
                       Icon(Icons.data_saver_off),
                       SizedBox(width: 8),
-                      Text('Fetch data...')
+                      Text('Fetch data...'),
                     ],
                   ),
                 ),

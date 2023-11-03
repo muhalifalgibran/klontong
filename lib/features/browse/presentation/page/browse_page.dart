@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:klontong/core/utlis/debouncer.dart';
+import 'package:klontong/features/browse/presentation/page/detail_product_page.dart';
 import 'package:klontong/features/browse/presentation/providers/browse_provider.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:klontong/features/home/presentation/widgets/item_product_widget.dart';
@@ -39,6 +40,7 @@ class _BrowsePageState extends State<BrowsePage> {
               const SizedBox(width: 10),
               Expanded(
                 child: TextFormField(
+                  autofocus: false,
                   decoration: const InputDecoration.collapsed(
                     hintText: 'search',
                   ),
@@ -70,9 +72,20 @@ class _BrowsePageState extends State<BrowsePage> {
                     bottom: isEnd ? 80 : 20,
                     top: isFirst ? 20 : 0,
                   ),
-                  child: ItemProductWidget(
-                    data: provider.searchedProduct[index],
-                    width: MediaQuery.of(context).size.width - 40,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => DetailProductPage(
+                            product: provider.searchedProduct[index],
+                          ),
+                        ),
+                      );
+                    },
+                    child: ItemProductWidget(
+                      data: provider.searchedProduct[index],
+                      width: MediaQuery.of(context).size.width - 40,
+                    ),
                   ),
                 );
               },

@@ -1,5 +1,6 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:klontong/features/add_product/presentation/page/input_product_page.dart';
 import 'package:klontong/features/browse/presentation/page/browse_page.dart';
 import 'package:klontong/features/browse/presentation/providers/browse_provider.dart';
 import 'package:klontong/features/home/presentation/pages/home_page.dart';
@@ -32,7 +33,7 @@ class _AppState extends State<App> {
   /// widget list
   final List<Widget> bottomBarPages = const [
     HomePage(),
-    Center(child: Text('2')),
+    InputProductPage(),
     BrowsePage(),
   ];
 
@@ -114,7 +115,7 @@ class _AppState extends State<App> {
               )
             : const SizedBox(
                 child: Center(
-                  child: Text('asdasd'),
+                  child: Text('Null'),
                 ),
               ),
       ),
