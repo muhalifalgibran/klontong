@@ -4,7 +4,7 @@ import 'package:klontong/core/entities/product.dart';
 import 'package:klontong/features/home/domain/usecases/get_list_product.dart';
 
 class HomeProvider extends ChangeNotifier {
-  late final List<Product> product;
+  List<Product> product = [];
   bool isError = false;
 
   void getListProduct() async {

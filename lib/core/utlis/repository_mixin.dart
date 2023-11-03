@@ -15,17 +15,13 @@ mixin RepositoryMixin {
       } else if (e.response!.statusCode! > 500) {
         return Left(ServerFailure(message: e.error.toString()));
       } else {
-        return const Left(
-          DeviceFailure(
-            message: "Terjadi Kesalahan. Silahkan coba beberapa saat lagi",
-          ),
-        );
+        rethrow;
       }
     } catch (e) {
       // TODO: implement monitoring
       return const Left(
         DeviceFailure(
-          message: "Terjadi Kesalahan. Silahkan coba beberapa saat lagi",
+          message: "Error occures. Try again later",
         ),
       );
     }
