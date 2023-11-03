@@ -1,10 +1,10 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:klontong/features/browse/presentation/page/browse_page.dart';
+import 'package:klontong/features/browse/presentation/providers/browse_provider.dart';
 import 'package:klontong/features/home/presentation/pages/home_page.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
-
-import 'core/di/service_locator.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -33,7 +33,7 @@ class _AppState extends State<App> {
   final List<Widget> bottomBarPages = const [
     HomePage(),
     Center(child: Text('2')),
-    Center(child: Text('3')),
+    BrowsePage(),
   ];
 
   int maxCount = 4;

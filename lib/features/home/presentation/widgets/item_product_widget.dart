@@ -3,7 +3,8 @@ import 'package:klontong/core/entities/product.dart';
 
 class ItemProductWidget extends StatelessWidget {
   final Product data;
-  const ItemProductWidget({required this.data, super.key});
+  final double? width;
+  const ItemProductWidget({required this.data, this.width, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ItemProductWidget extends StatelessWidget {
       // height: 320,
       // -24 for margin at the parent
       // because we put two item in each row
-      width: MediaQuery.of(context).size.width / 2 - 40,
+      width: width ?? MediaQuery.of(context).size.width / 2 - 40,
       child: Wrap(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,11 +37,13 @@ class ItemProductWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  data.imgUrl ??
-                      'https://encrypted-tbn0.gstatic.com/images?q='
-                          'tbn:ANd9GcTHov6Y_Xm6MoAYJ_YcbjSPYwSTmIdps6b4Y5EQUxGp&s',
-                  height: 250,
+                Center(
+                  child: Image.network(
+                    data.imgUrl ??
+                        'https://encrypted-tbn0.gstatic.com/images?q='
+                            'tbn:ANd9GcTHov6Y_Xm6MoAYJ_YcbjSPYwSTmIdps6b4Y5EQUxGp&s',
+                    height: 250,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 // title
@@ -61,7 +64,7 @@ class ItemProductWidget extends StatelessWidget {
                       '\$${data.price.toString()}',
                       style: const TextStyle(
                         fontWeight: FontWeight.normal,
-                        fontSize: 8,
+                        fontSize: 12,
                       ),
                     ),
                     const Spacer(),
@@ -69,7 +72,7 @@ class ItemProductWidget extends StatelessWidget {
                       '⭐️${data.rating.rate.toString()}',
                       style: const TextStyle(
                         fontWeight: FontWeight.normal,
-                        fontSize: 8,
+                        fontSize: 12,
                       ),
                     ),
                   ],

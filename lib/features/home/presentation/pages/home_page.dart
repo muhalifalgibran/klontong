@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:klontong/core/entities/product.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
@@ -71,6 +69,11 @@ class _ListProductState extends State<_ListProduct> {
             // at the top.
           } else {
             // at the above bottom
+            if (_displayedProduct.length == widget.products.length) {
+              // make early return so our app doesn't need to
+              // always check and rebuild (setState) the widget tree
+              return;
+            }
             if (_displayedProduct.length != widget.products.length) {
               // set that it is like we fetch the data from API
               isFetching = true;

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:klontong/core/error/failure.dart';
 
-// use mixin to reduce the boilerplate code
+// use mixin to reduce the boilerplate code in repository
 mixin RepositoryMixin {
   Future<Either<Failure, T>> callDataSource<T>(
     Future<T> Function() call,
