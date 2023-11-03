@@ -22,7 +22,7 @@ mixin RepositoryMixin {
         );
       }
     } catch (e) {
-      // implement monitoring
+      // TODO: implement monitoring
       return const Left(
         DeviceFailure(
           message: "Terjadi Kesalahan. Silahkan coba beberapa saat lagi",
