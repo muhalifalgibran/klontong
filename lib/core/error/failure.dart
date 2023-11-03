@@ -57,3 +57,14 @@ class ServerFailure extends Failure {
   @override
   String toString() => 'ServerFailure($statusCode, $errorType, $message)';
 }
+
+class DeviceFailure extends Failure {
+  const DeviceFailure(
+      {super.message = 'There is something wrong with your device!'});
+
+  @override
+  List<Object?> get props => [message];
+
+  @override
+  String toString() => 'DeviceFailure($message)';
+}

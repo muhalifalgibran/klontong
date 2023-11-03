@@ -5,7 +5,8 @@ import 'package:dio/dio.dart';
 // from other class, if there is no instanciate before, it should instanciate
 // for the first time.
 class DioClient with DioMixin {
-  static const _url = 'https://reqres.in/api/';
+  static const _url =
+      'https://crudcrud.com/api/33a2b5432aa14917ba393d73879f648b/';
 
   // instanciate
   static DioClient init() => DioClient._();
