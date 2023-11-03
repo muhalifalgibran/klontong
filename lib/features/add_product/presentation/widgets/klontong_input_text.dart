@@ -9,6 +9,8 @@ class KlontongInputTextWidget extends StatelessWidget {
     this.keyboardType,
     this.maxLines = 1,
     this.onChanged,
+    this.controller,
+    this.validator,
     this.obscure = false,
     super.key,
   });
@@ -20,6 +22,8 @@ class KlontongInputTextWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final Function(String)? onChanged;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +55,8 @@ class KlontongInputTextWidget extends StatelessWidget {
           child: TextFormField(
             maxLines: maxLines,
             obscureText: obscure,
+            controller: controller,
+            validator: validator,
             style: const TextStyle(fontSize: 14.0),
             inputFormatters: inputFormatters,
             keyboardType: keyboardType,
