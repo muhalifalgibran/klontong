@@ -4,7 +4,6 @@ import 'package:klontong/features/home/data/datasources/home_data_source.dart';
 import 'package:klontong/features/home/data/repositories/home_repository_impl.dart';
 import 'package:klontong/features/home/domain/repositories/home_repository.dart';
 import 'package:klontong/features/home/domain/usecases/get_list_product.dart';
-import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -25,7 +24,4 @@ void setupLocator() {
 
   // usecases
   getIt.registerLazySingleton(() => GetListProduct());
-
-  // providers
-  getIt.registerLazySingleton(() => HomeProvider());
 }

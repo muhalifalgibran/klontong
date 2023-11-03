@@ -44,7 +44,7 @@ class _AppState extends State<App> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HomeProvider>(
-          create: (context) => getIt<HomeProvider>(),
+          create: (context) => HomeProvider(),
         ),
       ],
       child: Scaffold(

@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:klontong/core/entities/product.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:klontong/features/home/presentation/widgets/item_product_widget.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -19,17 +21,88 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<HomeProvider>().getListProduct();
     });
+  }
 
-    _scrollController.addListener(() {
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<HomeProvider>();
+    // since our API doesn't provide an ideal data for pagination
+    // so we make manual pagination
+    if (provider.product != [] && provider.product.isNotEmpty) {
+      return _ListProduct(products: provider.product, amount: 10);
+    }
+    if (provider.isError) {
+      return const Center(
+        child: Text('Something is wrong..'),
+      );
+    }
+    return const Center(
+      child: Text('Fetch data...'),
+    );
+  }
+}
+
+class _ListProduct extends StatefulWidget {
+  final int amount;
+  final List<Product> products;
+  const _ListProduct({
+    required this.products,
+    required this.amount,
+  });
+
+  @override
+  State<_ListProduct> createState() => _ListProductState();
+}
+
+class _ListProductState extends State<_ListProduct> {
+  final ScrollController _scrollController = ScrollController();
+  List<Product> _displayedProduct = [];
+  bool isFetching = false;
+  @override
+  void initState() {
+    super.initState();
+    // store displayed product based on amount that we want to be displayed
+    _displayedProduct = widget.products.sublist(0, widget.amount);
+    _scrollController.addListener(() async {
       if (_scrollController.position.isScrollingNotifier.value ||
           _scrollController.position.extentAfter < 500) {
         if (_scrollController.position.atEdge) {
           if (_scrollController.position.pixels == 0) {
-            // You're at the top.
-            print('at top');
+            // at the top.
           } else {
-            // you are at the above bottom
-            print('at bottom');
+            // at the above bottom
+            if (_displayedProduct.length != widget.products.length) {
+              // set that it is like we fetch the data from API
+              isFetching = true;
+              setState(() {});
+              // if the product length is less than widget amount. then, we store the rest of
+              // the data in products
+
+              // make delay like we fetch the data from API
+              await Future.delayed(const Duration(milliseconds: 750));
+
+              if ((_displayedProduct.length - widget.products.length) <
+                  widget.amount) {
+                _displayedProduct.addAll(
+                  widget.products.sublist(
+                    _displayedProduct.length,
+                    widget.products.length,
+                  ),
+                );
+              } else {
+                // but if the rest of the product is still more or equal than amount
+                // then, we store the displayedProduct amount based on amount
+                _displayedProduct.addAll(
+                  widget.products.sublist(
+                    _displayedProduct.length - 1,
+                    widget.amount,
+                  ),
+                );
+              }
+            }
+
+            isFetching = false;
+            setState(() {});
           }
         }
       }
@@ -38,7 +111,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<HomeProvider>();
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -48,19 +120,42 @@ class _HomePageState extends State<HomePage> {
         controller: _scrollController,
         child: Column(
           children: [
-            if (provider.product != [])
+            if (_displayedProduct != [])
               Center(
                 child: Wrap(
                   spacing: 20,
                   direction: Axis.horizontal,
-                  children: List.generate(provider.product!.length, (index) {
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: ItemProductWidget(data: provider.product![index]),
+                  children: List.generate(_displayedProduct.length, (index) {
+                    return Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child:
+                              ItemProductWidget(data: _displayedProduct[index]),
+                        ),
+                        if (index == _displayedProduct.length - 1)
+                          const SizedBox(
+                            height: 68,
+                          ),
+                      ],
                     );
                   }),
                 ),
-              )
+              ),
+            if (isFetching)
+              Container(
+                margin: const EdgeInsets.only(bottom: 80),
+                child: const Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.data_saver_off),
+                      SizedBox(width: 8),
+                      Text('Fetch data...')
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),
