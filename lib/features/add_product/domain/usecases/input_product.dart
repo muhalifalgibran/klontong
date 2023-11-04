@@ -8,5 +8,5 @@ class InputProduct {
   static final _repo = getIt<InputProductRepository>();
 
   Future<Either<Failure, void>> call(Product product) =>
-      _repo.getProduct(product);
+      _repo.inputProduct(product);
 }

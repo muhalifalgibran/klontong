@@ -11,6 +11,7 @@ class InputProductRepositoryImpl
     implements InputProductRepository {
   static final _dataSource = getIt<InputProductDataSource>();
   @override
-  Future<Either<Failure, void>> getProduct(Product product) =>
-      callDataSource(() => _dataSource.inputProduct(product));
+  Future<Either<Failure, void>> inputProduct(Product product) => callDataSource(
+        () => _dataSource.inputProduct(product),
+      );
 }
