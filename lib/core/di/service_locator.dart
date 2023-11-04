@@ -1,5 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:klontong/core/network/dio_client.dart';
+import 'package:klontong/features/add_product/data/datasources/input_product_data_source.dart';
+import 'package:klontong/features/add_product/data/repositories/input_product_repository_impl.dart';
+import 'package:klontong/features/add_product/domain/repositories/input_product_repository.dart';
+import 'package:klontong/features/add_product/domain/usecases/input_product.dart';
 import 'package:klontong/features/home/data/datasources/home_data_source.dart';
 import 'package:klontong/features/home/data/repositories/home_repository_impl.dart';
 import 'package:klontong/features/home/domain/repositories/home_repository.dart';
@@ -18,10 +22,15 @@ void setupLocator() {
 
   // repositories
   getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl());
+  getIt.registerLazySingleton<InputProductRepository>(
+      () => InputProductRepositoryImpl());
 
   // datasources
   getIt.registerLazySingleton<HomeDataSource>(() => HomeDataSourceImpl());
+  getIt.registerLazySingleton<InputProductDataSource>(
+      () => InputProductDataSourceImpl());
 
   // usecases
   getIt.registerLazySingleton(() => GetListProduct());
+  getIt.registerLazySingleton(() => InputProduct());
 }

@@ -15,7 +15,7 @@ class HomeProvider extends ChangeNotifier {
         isError = true;
       },
       (dataProduct) {
-        product = dataProduct;
+        product = dataProduct.reversed.toList();
       },
     );
     notifyListeners();

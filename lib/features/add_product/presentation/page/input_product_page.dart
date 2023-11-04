@@ -4,8 +4,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:klontong/core/entities/product.dart';
+import 'package:klontong/features/add_product/presentation/providers/input_product_provider.dart';
 import 'package:klontong/features/add_product/presentation/widgets/klontong_input_text.dart';
 import 'package:klontong/features/add_product/presentation/widgets/klontong_tag_widget.dart';
+import 'package:klontong/features/home/presentation/providers/home_provider.dart';
+import 'package:provider/provider.dart';
 
 class InputProductPage extends StatefulWidget {
   const InputProductPage({super.key});
@@ -21,12 +24,6 @@ class _InputProductPageState extends State<InputProductPage> {
   final TextEditingController _descCtrl = TextEditingController();
   final TextEditingController _priceCtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  void clear() {
-    _titleCtrl.clear();
-    _descCtrl.clear();
-    _priceCtrl.clear();
-  }
 
   String _categoryVal = 'Category';
 
@@ -55,8 +52,12 @@ class _InputProductPageState extends State<InputProductPage> {
     return numericRegex.hasMatch(input);
   }
 
+  void sendData(BuildContext context) async {}
+
   @override
   Widget build(BuildContext context) {
+    final inputProvider = context.watch<InputProductProvider>();
+    // final homeProvider = context.watch<HomeProvider>();
     final isResetActive = _titleCtrl.text != '' ||
         _categoryVal != 'Category' ||
         _descCtrl.text != '' ||
@@ -197,33 +198,38 @@ class _InputProductPageState extends State<InputProductPage> {
               Row(
                 children: [
                   ElevatedButton(
-                      onPressed: () async {
-                        // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
-                          final random = Random();
-                          final product = Product(
-                            idCount: random.nextInt(999),
-                            title: _titleCtrl.text,
-                            price: double.parse(_priceCtrl.text),
-                            description: _titleCtrl.text,
-                            category: _categoryVal == 'Category'
-                                ? 'Random'
-                                : _categoryVal,
-                            imgUrl: image?.path ?? '',
-                            // random rating because we don't have rating feature
-                            rating: Rating(
-                                rate: random.nextInt(5),
-                                count: random.nextInt(999)),
-                          );
-                          showLoading();
-                          await Future.delayed(
-                            const Duration(milliseconds: 750),
-                          );
-                        }
-                      },
-                      child: const Text('Send')),
+                    onPressed: () async {
+                      // Validate returns true if the form is valid, or false otherwise.
+                      if (_formKey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar. In the real world,
+                        // you'd often call a server or save the information in a database.
+                        final random = Random();
+                        final product = Product(
+                          idCount: random.nextInt(999),
+                          title: _titleCtrl.text,
+                          price: double.parse(_priceCtrl.text),
+                          description: _descCtrl.text,
+                          category: _categoryVal == 'Category'
+                              ? 'Random'
+                              : _categoryVal,
+                          imgUrl: image?.path ?? '',
+                          // random rating because we don't have rating feature
+                          rating: Rating(
+                              rate: random.nextInt(5),
+                              count: random.nextInt(999)),
+                        );
+                        showLoading();
+                        await inputProvider
+                            .uploadProduct(product)
+                            .then((value) {
+                          Navigator.pop(context);
+                        });
+
+                        resetForm();
+                      }
+                    },
+                    child: const Text('Send'),
+                  ),
                   const SizedBox(width: 18),
                   isResetActive
                       ? ElevatedButton(
@@ -304,5 +310,24 @@ class _InputProductPageState extends State<InputProductPage> {
         );
       },
     );
+  }
+
+  void showError() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: const Text('Something is wrong..'),
+          ),
+        );
+      },
+    );
+
+    await Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pop(context);
+    });
   }
 }

@@ -1,8 +1,8 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:klontong/features/add_product/presentation/page/input_product_page.dart';
+import 'package:klontong/features/add_product/presentation/providers/input_product_provider.dart';
 import 'package:klontong/features/browse/presentation/page/browse_page.dart';
-import 'package:klontong/features/browse/presentation/providers/browse_provider.dart';
 import 'package:klontong/features/home/presentation/pages/home_page.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +16,8 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   /// Controller to handle bottom nav bar and also handles initial page
+  /// Controller to handle PageView and also handles initial page
+  final _pageController = PageController(initialPage: 0);
   final _controller = NotchBottomBarController(index: 0);
 
   int _indexPage = 0;
@@ -47,13 +49,16 @@ class _AppState extends State<App> {
         ChangeNotifierProvider<HomeProvider>(
           create: (context) => HomeProvider(),
         ),
+        ChangeNotifierProvider<InputProductProvider>(
+          create: (context) => InputProductProvider(),
+        ),
       ],
       child: Scaffold(
         backgroundColor: Colors.grey.shade300,
-        body: IndexedStack(
-          // controller: _pageController,
-          // physics: const NeverScrollableScrollPhysics(),
-          index: _indexPage,
+        body: PageView(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          // index: _indexPage,
           children: bottomBarPages,
         ),
         extendBody: true,
@@ -107,10 +112,10 @@ class _AppState extends State<App> {
                 ],
                 onTap: (index) {
                   /// perform action on tab change and to update pages you can update pages without pages
-                  // _pageController.jumpToPage(index);
-                  setState(() {
-                    _indexPage = index;
-                  });
+                  _pageController.jumpToPage(index);
+                  // setState(() {
+                  //   _indexPage = index;
+                  // });
                 },
               )
             : const SizedBox(
