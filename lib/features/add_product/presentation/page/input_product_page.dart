@@ -222,6 +222,7 @@ class _InputProductPageState extends State<InputProductPage> {
                         await inputProvider
                             .uploadProduct(product)
                             .then((value) {
+                          context.read<HomeProvider>().getListProduct();
                           Navigator.pop(context);
                         });
 

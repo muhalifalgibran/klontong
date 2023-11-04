@@ -18,9 +18,7 @@ class InputProductDataSourceImpl implements InputProductDataSource {
     // save the picture to firebase store and put it by userId
     // we input the image first
     final file = File(product.imgUrl!);
-    await _fbStorage
-        .uploadProduct(file, 'products/${product.idCount}')
-        .then((picUrl) async {
+    await _fbStorage.uploadProduct(file, 'products').then((picUrl) async {
       // after successfully upload the image into firebase storage
       // we use the output(imageURL) as the parameter of our image in product
       await _module.post(

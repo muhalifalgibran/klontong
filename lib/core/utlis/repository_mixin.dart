@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:klontong/core/di/service_locator.dart';
 import 'package:klontong/core/error/failure.dart';
+import 'package:klontong/core/monitoring/monitoring.dart';
 
 // use mixin to reduce the boilerplate code in repository
 mixin RepositoryMixin {
@@ -10,6 +12,9 @@ mixin RepositoryMixin {
     try {
       return Right(await call());
     } on DioException catch (e) {
+      getIt<Monitoring>()
+          .recordError('${e.response!.statusCode} - ${e.error}', null);
+
       if (e.response!.statusCode! > 400 && e.response!.statusCode! < 500) {
         return Left(ClientFailure(message: e.error.toString()));
       } else if (e.response!.statusCode! > 500) {
@@ -18,7 +23,7 @@ mixin RepositoryMixin {
         rethrow;
       }
     } catch (e) {
-      // TODO: implement monitoring
+      getIt<Monitoring>().recordError(e, null);
       return const Left(
         DeviceFailure(
           message: "Error occures. Try again later",

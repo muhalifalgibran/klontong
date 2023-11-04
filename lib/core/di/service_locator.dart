@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:klontong/core/monitoring/monitoring.dart';
 import 'package:klontong/core/network/dio_client.dart';
 import 'package:klontong/features/add_product/data/datasources/input_product_data_source.dart';
 import 'package:klontong/features/add_product/data/repositories/input_product_repository_impl.dart';
@@ -19,6 +20,9 @@ void setupLocator() {
   getIt.registerLazySingleton<DioClient>(
     () => DioClient.init(),
   );
+
+  // monitoring
+  getIt.registerLazySingleton<Monitoring>(() => Monitoring());
 
   // repositories
   getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl());

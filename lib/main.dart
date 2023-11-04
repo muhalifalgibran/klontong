@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:klontong/app.dart';
 import 'package:klontong/core/di/service_locator.dart';
+import 'package:klontong/firebase_options.dart';
+
+import 'core/monitoring/monitoring.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupLocator();
-  await Firebase.initializeApp();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await getIt<Monitoring>().initialize();
   runApp(const MyApp());
 }
 
