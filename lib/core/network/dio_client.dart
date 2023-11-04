@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:klontong/core/utlis/constants.dart';
+import 'package:klontong/core/utils/constants.dart';
 
 // we create dio client as Lazy singleton, so whenever this class
 // is called, it just calls the latest instance if it already instanciated
