@@ -203,7 +203,6 @@ class _InputProductPageState extends State<InputProductPage> {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
                           final random = Random();
-                          showLoading();
                           final product = Product(
                             idCount: random.nextInt(999),
                             title: _titleCtrl.text,
@@ -218,6 +217,7 @@ class _InputProductPageState extends State<InputProductPage> {
                                 rate: random.nextInt(5),
                                 count: random.nextInt(999)),
                           );
+                          showLoading();
                           await Future.delayed(
                             const Duration(milliseconds: 750),
                           );
