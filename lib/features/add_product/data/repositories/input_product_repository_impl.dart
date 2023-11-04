@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:klontong/core/di/service_locator.dart';
 import 'package:klontong/core/entities/product.dart';
 import 'package:klontong/core/error/failure.dart';
-import 'package:klontong/core/utlis/repository_mixin.dart';
+import 'package:klontong/core/utils/repository_mixin.dart';
 import 'package:klontong/features/add_product/data/datasources/input_product_data_source.dart';
 import 'package:klontong/features/add_product/domain/repositories/input_product_repository.dart';
 
