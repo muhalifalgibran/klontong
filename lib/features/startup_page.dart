@@ -21,7 +21,7 @@ class _StartupPageState extends State<StartupPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginProvider>(
-      create: (_) => LoginProvider(),
+      create: (_) => LoginProvider()..checkLogin(),
       builder: (ctx, child) {
         final provider = ctx.watch<LoginProvider>();
 

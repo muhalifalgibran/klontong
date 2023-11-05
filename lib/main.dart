@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:klontong/core/di/service_locator.dart';
-import 'package:klontong/features/auth/presentation/login_page.dart';
 import 'package:klontong/features/startup_page.dart';
 import 'package:klontong/firebase_options.dart';
 

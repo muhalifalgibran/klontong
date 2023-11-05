@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:klontong/core/di/service_locator.dart';
 import 'package:klontong/core/entities/product.dart';
 import 'package:klontong/features/home/domain/usecases/get_list_product.dart';
@@ -32,6 +33,18 @@ class HomeProvider extends ChangeNotifier {
     if (name == '') {
       searchedProduct.clear();
     }
+    notifyListeners();
+  }
+
+  bool isLogout = false;
+
+  void logout() async {
+    if (!Hive.isBoxOpen('auth')) {
+      await Hive.openBox('auth');
+    }
+    final auth = await Hive.openBox('auth');
+    auth.put('isLoggedIn', false);
+    isLogout = true;
     notifyListeners();
   }
 }

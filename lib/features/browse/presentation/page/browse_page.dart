@@ -3,6 +3,7 @@ import 'package:klontong/core/utils/debouncer.dart';
 import 'package:klontong/features/browse/presentation/page/detail_product_page.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:klontong/features/home/presentation/widgets/item_product_widget.dart';
+import 'package:klontong/features/startup_page.dart';
 import 'package:provider/provider.dart';
 
 class BrowsePage extends StatefulWidget {
@@ -18,6 +19,16 @@ class _BrowsePageState extends State<BrowsePage> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<HomeProvider>();
+    if (provider.isLogout) {
+      Future.delayed(const Duration(milliseconds: 750), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const StartupPage(),
+          ),
+        );
+      });
+    }
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
@@ -26,7 +37,7 @@ class _BrowsePageState extends State<BrowsePage> {
         actions: [
           GestureDetector(
             onTap: () {
-              // TODO: logout
+              context.read<HomeProvider>().logout();
             },
             child: Container(
                 padding: const EdgeInsets.all(8),
