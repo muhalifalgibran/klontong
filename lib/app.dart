@@ -20,8 +20,6 @@ class _AppState extends State<App> {
   final _pageController = PageController(initialPage: 0);
   final _controller = NotchBottomBarController(index: 0);
 
-  int _indexPage = 0;
-
   @override
   void dispose() {
     super.dispose();

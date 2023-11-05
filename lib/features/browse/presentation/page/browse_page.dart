@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:klontong/core/utils/debouncer.dart';
 import 'package:klontong/features/browse/presentation/page/detail_product_page.dart';
-import 'package:klontong/features/browse/presentation/providers/browse_provider.dart';
 import 'package:klontong/features/home/presentation/providers/home_provider.dart';
 import 'package:klontong/features/home/presentation/widgets/item_product_widget.dart';
 import 'package:provider/provider.dart';

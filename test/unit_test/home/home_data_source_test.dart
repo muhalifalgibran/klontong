@@ -6,7 +6,7 @@ import 'package:klontong/core/network/dio_client.dart';
 import 'package:klontong/features/home/data/datasources/home_data_source.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'utility.dart';
+import '../utility.dart';
 
 class MockDioClient extends Mock implements DioClient {}
 
@@ -14,10 +14,9 @@ void main() {
   late DioClient client;
   late HomeDataSource dataSource;
 
-  setUpAll(() {
+  setUp(() {
     client = MockDioClient();
     registerTestLazySingleton(client);
-
     dataSource = HomeDataSourceImpl();
   });
 

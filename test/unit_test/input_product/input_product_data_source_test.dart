@@ -7,7 +7,7 @@ import 'package:klontong/core/network/dio_client.dart';
 import 'package:klontong/core/network/firebase_storage_client.dart';
 import 'package:klontong/features/add_product/data/datasources/input_product_data_source.dart';
 import 'package:mocktail/mocktail.dart';
-import '../home/utility.dart';
+import '../utility.dart';
 
 class MockFirebaseStorageClient extends Mock implements FirebaseStorageClient {}
 

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:klontong/core/entities/product.dart';
-import 'package:klontong/core/models/product_model.dart';
 
 void main() {
   test('should perform valid props', () {

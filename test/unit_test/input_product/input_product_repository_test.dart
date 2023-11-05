@@ -8,7 +8,7 @@ import 'package:klontong/features/add_product/data/repositories/input_product_re
 import 'package:klontong/features/add_product/domain/repositories/input_product_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../home/utility.dart';
+import '../utility.dart';
 
 class MockInputProductDataSource extends Mock
     implements InputProductDataSource {}
