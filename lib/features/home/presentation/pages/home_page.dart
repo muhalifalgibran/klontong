@@ -83,7 +83,7 @@ class _ListProductState extends State<_ListProduct> {
               // the data in products
 
               // make delay like we fetch the data from API
-              await Future.delayed(const Duration(milliseconds: 750));
+              await Future.delayed(const Duration(milliseconds: 1250));
 
               if ((_displayedProduct.length - widget.products.length) <
                   widget.amount) {
