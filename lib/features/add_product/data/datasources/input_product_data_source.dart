@@ -11,7 +11,7 @@ abstract class InputProductDataSource {
 
 class InputProductDataSourceImpl implements InputProductDataSource {
   final _module = getIt<DioClient>();
-  final _fbStorage = FirabaseStorageClient();
+  final _fbStorage = getIt<FirebaseStorageClient>();
 
   @override
   Future<void> inputProduct(Product product) async {

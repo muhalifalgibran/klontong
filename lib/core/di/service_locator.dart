@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:klontong/core/monitoring/monitoring.dart';
 import 'package:klontong/core/network/dio_client.dart';
+import 'package:klontong/core/network/firebase_storage_client.dart';
 import 'package:klontong/features/add_product/data/datasources/input_product_data_source.dart';
 import 'package:klontong/features/add_product/data/repositories/input_product_repository_impl.dart';
 import 'package:klontong/features/add_product/domain/repositories/input_product_repository.dart';
@@ -24,15 +25,26 @@ void setupLocator() {
   // monitoring
   getIt.registerLazySingleton<Monitoring>(() => Monitoring());
 
+  // firebase
+  getIt.registerLazySingleton<FirebaseStorageClient>(
+    () => FirebaseStorageClient(),
+  );
+
   // repositories
-  getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl());
+  getIt.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(),
+  );
   getIt.registerLazySingleton<InputProductRepository>(
-      () => InputProductRepositoryImpl());
+    () => InputProductRepositoryImpl(),
+  );
 
   // datasources
-  getIt.registerLazySingleton<HomeDataSource>(() => HomeDataSourceImpl());
+  getIt.registerLazySingleton<HomeDataSource>(
+    () => HomeDataSourceImpl(),
+  );
   getIt.registerLazySingleton<InputProductDataSource>(
-      () => InputProductDataSourceImpl());
+    () => InputProductDataSourceImpl(),
+  );
 
   // usecases
   getIt.registerLazySingleton(() => GetListProduct());

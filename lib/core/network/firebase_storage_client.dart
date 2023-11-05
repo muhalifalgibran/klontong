@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart';
 
-class FirabaseStorageClient {
+class FirebaseStorageClient {
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   Future<String> uploadProduct(File file, String folder) async {
@@ -16,6 +16,8 @@ class FirabaseStorageClient {
       // rethrow the error because we want to catch the
       // error in data repository, remember we treat
       // our repository as DTO
+      rethrow;
+    } catch (e) {
       rethrow;
     }
   }
