@@ -1,7 +1,4 @@
-
-
-
-# Simple Admin
+# Klontong APP
 
 ### Prerequisite
 
@@ -22,27 +19,32 @@ Clean Architecture really makes the app more maintanable by seperating the layer
 
 In our code base the folder is seperated like this:
 
-![enter image description here](https://gcdnb.pbrd.co/images/agEESqZiwTgE.png?o=1)
+![enter image description here](https://gcdnb.pbrd.co/images/wpJ92N6bE8wz.png?o=1)
 
 The project goals is to seperate the folder by layer as the Clean Architecture principle **(Separation of Concern)**. the project utility is in core folder such like dependency injections, network, module, and etc (the more complex the app the more core utility we need).
 
 The features files contains the feature/requirements of the project, seperating feature by folders, so every feature folder has data, domain, and presentation layer.
 
-Since there is only one feature, so the Dashbord feature is only feature that exist in our codebase.
 As the principle of **Clean Architecture** we often use one of the principle of SOLID which is **Dependency Inversion**, we can see communication between `Repository` and `DataSource` there is an abstract class as the bridge or media for the communcation/DTO so whenever we, for example, want to change the `DataSource` to get from local or anywhere else, we just need to change the logic in `DataSource` as long as the expected output still remains as before.
 
-![enter image description here](https://gcdnb.pbrd.co/images/db1y4ELXVyzS.png?o=1)
+![enter image description here](https://gcdnb.pbrd.co/images/id9LhUizGFzL.png?o=1)
 
 Using this this approach really helps the developers to have a clear understanding about the objects, how the object interact to another and how the object have a single responsibility of its own function.
 
+Note: Since we just using single `entitity (product) and its model (product model)` . So, you will see some empty folders in our codebase
+
 ### State Management
 I am using Provider for the state management. Because, it is simple, makes our development time faster, and powerfull especially for our project scope.
+
+### Data Source API
+I am crudcrud.com for API that may be expired by **Monday, November 13, 2023** please contact me if you need to extend the expiry date
 
 ### Packages
 |Packages|  Descriptions|
 |--|--|
 | dio |Provides media communication between client and server for http call|
 | google_fonts| Easy implement of material fonts, because we use monsterrat font|
+| firebase_storage| this is to store our product pictures|
 | provider| We use provider for the state management as it provides simple implementation but still can tackle many complex problems|
 | injectable| Helps to pattern mathcing for classes/objects, it provide dynamic return of object, make our function simpler|
 | dartz| Cutting boilerplate codes in DTO from data to presentation layer|
