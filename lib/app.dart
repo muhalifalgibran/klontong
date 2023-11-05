@@ -1,5 +1,6 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:klontong/features/add_product/presentation/page/input_product_page.dart';
 import 'package:klontong/features/add_product/presentation/providers/input_product_provider.dart';
 import 'package:klontong/features/browse/presentation/page/browse_page.dart';

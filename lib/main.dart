@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:klontong/app.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:klontong/core/di/service_locator.dart';
+import 'package:klontong/features/auth/presentation/login_page.dart';
+import 'package:klontong/features/startup_page.dart';
 import 'package:klontong/firebase_options.dart';
 
 import 'core/monitoring/monitoring.dart';
@@ -11,6 +15,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupLocator();
+
+  await Hive.initFlutter();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
-      home: const App(),
+      home: const StartupPage(),
     );
   }
 }

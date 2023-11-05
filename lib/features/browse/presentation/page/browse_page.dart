@@ -23,6 +23,26 @@ class _BrowsePageState extends State<BrowsePage> {
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: Colors.black54,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              // TODO: logout
+            },
+            child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.login,
+                  color: Colors.white,
+                )),
+          ),
+          const SizedBox(
+            width: 18,
+          )
+        ],
         title: Container(
           padding: const EdgeInsets.all(12),
           margin: const EdgeInsets.symmetric(

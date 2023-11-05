@@ -7,6 +7,7 @@ class HomeProvider extends ChangeNotifier {
   List<Product> product = [];
   bool isError = false;
   List<Product> searchedProduct = [];
+
   void getListProduct() async {
     final data = await getIt<GetListProduct>().call();
 
